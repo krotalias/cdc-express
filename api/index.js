@@ -100,6 +100,10 @@ app.get("/cdc", (req, res) => {
     res.sendFile("cdc.html", { root: "public" });
 });
 
+app.get("/favicon.ico", (req, res) => {
+    res.sendFile("favicon.ico", { root: "public" });
+});
+
 app.listen(app.get("port"), () => {
     console.log(`Listening on port ${app.get("port")}`);
 });
