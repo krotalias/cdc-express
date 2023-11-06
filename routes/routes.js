@@ -6,7 +6,7 @@
  *
  * @author Paulo Roma
  * @since 01/11/2023
- * @see <a href="../routes/index.js">source</a>
+ * @see <a href="../routes/routes.js">source</a>
  * @see <a href="http://localhost:3000/cdc">link</a>
  * @see https://expressjs.com/en/guide/routing.html#express-router
  */
