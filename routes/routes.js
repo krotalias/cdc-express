@@ -18,8 +18,8 @@ var router = express.Router();
 const rational = require("../public/rational.cjs");
 
 // for POST
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+// router.use(express.json());
+// router.use(express.urlencoded({ extended: true }));
 
 /**
  * Return an HTML page with the CDC calculation results.
