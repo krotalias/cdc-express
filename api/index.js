@@ -17,11 +17,14 @@
  * @author Paulo Roma
  * @since 01/11/2023
  * @see <a href="../api/index.js">source</a>
+ * @see <a href="../package.json">package.json</a>
+ * @see <a href="../vercel.json">vercel.json</a>
  * @see <a href="https://cdc-express.vercel.app">link</a>
  * @see https://expressjs.com
  * @see https://expressjs.com/en/guide/using-middleware.html
  * @see https://expressjs.com/en/starter/static-files.html
  * @see https://vercel.com/guides/using-express-with-vercel
+ * @see https://medium.com/zero-equals-false/using-cors-in-express-cac7e29b005b
  * @see https://www.youtube.com/watch?v=JlgKybraoy4
  */
 
