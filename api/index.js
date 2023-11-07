@@ -27,8 +27,8 @@
 "use strict";
 
 const express = require("express");
-const favicon = require("serve-favicon");
-const path = require("path");
+// const favicon = require("serve-favicon");
+// const path = require("path");
 const indexRouter = require("../routes/routes.js");
 
 const app = express();
@@ -39,7 +39,7 @@ const vercel = true;
 
 app.set("port", process.env.PORT || 3000);
 app.use(express.static("public"));
-app.use(favicon(path.join("public", "favicon.ico")));
+//app.use(favicon(path.join("public", "favicon.ico")));
 
 // middleware
 app.use((req, res, next) => {
