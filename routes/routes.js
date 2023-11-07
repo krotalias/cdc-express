@@ -89,7 +89,7 @@ router.post("/", (req, res) => {
         +req.body.nb,
         +req.body.dp,
     ];
-    let dp = typeof arr[7] === "undefined" ? false : true;
+    let dp = typeof arr[6] === "undefined" ? false : true;
     rational.setDownPayment(dp);
     res.send(createHTML(arr));
 });
@@ -104,7 +104,7 @@ router.get("/", (req, res) => {
         +req.query.nb,
         +req.query.dp,
     ];
-    let dp = typeof arr[7] === "undefined" ? false : true;
+    let dp = typeof arr[6] === "undefined" ? false : true;
     rational.setDownPayment(dp);
     res.send(createHTML(arr));
 });
