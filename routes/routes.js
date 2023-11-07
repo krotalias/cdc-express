@@ -18,8 +18,8 @@ var router = express.Router();
 const rational = require("../public/rational.cjs");
 
 // for POST
-// router.use(express.json());
-// router.use(express.urlencoded({ extended: true }));
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 /**
  * Return an HTML page with the CDC calculation results.
@@ -80,15 +80,31 @@ function createHTML(arr) {
 }
 
 router.post("/", (req, res) => {
-    let arr = Object.keys(req.body).map((key) => +req.body[key]);
-    let dp = typeof arr[6] === "undefined" ? false : true;
+    let arr = [
+        +req.body.np,
+        +req.body.tax,
+        +req.body.pv,
+        +req.body.pp,
+        +req.body.pb,
+        +req.body.nb,
+        +req.body.db,
+    ];
+    let dp = typeof arr[7] === "undefined" ? false : true;
     rational.setDownPayment(dp);
     res.send(createHTML(arr));
 });
 
 router.get("/", (req, res) => {
-    let arr = Object.keys(req.query).map((key) => +req.query[key]);
-    let dp = typeof arr[6] === "undefined" ? false : true;
+    let arr = [
+        +req.query.np,
+        +req.query.tax,
+        +req.query.pv,
+        +req.query.pp,
+        +req.query.pb,
+        +req.query.nb,
+        +req.query.db,
+    ];
+    let dp = typeof arr[7] === "undefined" ? false : true;
     rational.setDownPayment(dp);
     res.send(createHTML(arr));
 });
