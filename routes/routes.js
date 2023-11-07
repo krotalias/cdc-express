@@ -26,9 +26,10 @@ router.use(express.urlencoded({ extended: true }));
  *
  * @param {Array<Number>} arr
  *  [parcelas, taxa, preço à vista, preço a prazo, valor a voltar, meses a voltar].
+ * @param {Boolean} prt whether print output.
  * @returns HTML code.
  */
-function createHTML(arr) {
+function createHTML(arr, prt) {
     let [np, t, pv, pp, pb, nb] = arr;
     t *= 0.01;
     let [ti, i] = rational.getInterest(pp, pv, np);
@@ -75,6 +76,9 @@ function createHTML(arr) {
     <div id="redBox" class="rectangle">
       <h4>${hpt}</h4>
     </div>
+    <script>
+      ${prt ? "print()" : ""};
+    </script>
   </body>
   </html>`;
 }
@@ -89,8 +93,9 @@ router.post("/", (req, res) => {
         +req.body.nb,
     ];
     let dp = typeof req.body.dp === "undefined" ? false : true;
+    let prt = typeof req.body.pdf === "undefined" ? false : true;
     rational.setDownPayment(dp);
-    res.send(createHTML(arr));
+    res.send(createHTML(arr, prt));
 });
 
 router.get("/", (req, res) => {
@@ -103,8 +108,9 @@ router.get("/", (req, res) => {
         +req.query.nb,
     ];
     let dp = typeof req.query.dp === "undefined" ? false : true;
+    let prt = typeof req.query.pdf === "undefined" ? false : true;
     rational.setDownPayment(dp);
-    res.send(createHTML(arr));
+    res.send(createHTML(arr, prt));
 });
 
 router.all("/cdc", (req, res) => {

@@ -9,7 +9,8 @@
  *  <li>npm init</li>
  *  <li>npm install express</li>
  *  <li>npm install serve-favicon</li>
- *  <li>npm start</li>
+ *  <li>npm start</li> or
+ *  <li>vercel dev</li>
  *  <li>https://cdc-express.vercel.app</li>
  * </ul>
  *
@@ -26,20 +27,23 @@
 
 "use strict";
 
+const vercel = true;
+
 const express = require("express");
-// const favicon = require("serve-favicon");
-// const path = require("path");
 const indexRouter = require("../routes/routes.js");
+
+if (!vercel) {
+    const favicon = require("serve-favicon");
+    const path = require("path");
+    app.use(favicon(path.join("public", "favicon.ico")));
+}
 
 const app = express();
 
 const whitelist = ["*"];
 
-const vercel = true;
-
 app.set("port", process.env.PORT || 3000);
 app.use(express.static("public"));
-//app.use(favicon(path.join("public", "favicon.ico")));
 
 // middleware
 app.use((req, res, next) => {
