@@ -21,17 +21,6 @@ const rational = require("../public/rational.cjs");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-// middleware that is specific to this router
-router.use((req, res, next) => {
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    console.log("Time: ", today.toISOString());
-    console.log(`${req.method}: url: ${req.url}, path: ${req.path}`);
-    console.log(req.get("referer"));
-    console.log(`context: ${JSON.stringify(req.context)}`);
-    next();
-});
-
 /**
  * Return an HTML page with the CDC calculation results.
  *

@@ -35,6 +35,8 @@ const app = express();
 
 const whitelist = ["*"];
 
+const vercel = true;
+
 app.set("port", process.env.PORT || 3000);
 app.use(express.static("public"));
 app.use(favicon(path.join("public", "favicon.ico")));
@@ -43,7 +45,6 @@ app.use(favicon(path.join("public", "favicon.ico")));
 app.use((req, res, next) => {
     const origin = req.get("referer");
     const isWhitelisted = whitelist.find((w) => origin && origin.includes(w));
-    console.log(isWhitelisted);
     if (isWhitelisted) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader(
@@ -62,11 +63,24 @@ app.use((req, res, next) => {
 });
 
 // middleware
-const setContext = (req, res, next) => {
-    if (!req.context) req.context = {};
-    next();
-};
-app.use(setContext);
+if (!vercel) {
+    const setContext = (req, res, next) => {
+        if (!req.context) req.context = {};
+        next();
+    };
+    app.use(setContext);
+
+    // middleware that is specific to this router
+    app.use((req, res, next) => {
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+        console.log("Time: ", today.toISOString());
+        console.log(`${req.method}: url: ${req.url}, path: ${req.path}`);
+        console.log(req.get("referer"));
+        console.log(`context: ${JSON.stringify(req.context)}`);
+        next();
+    });
+}
 
 let root = "/api";
 
@@ -79,8 +93,10 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 // this should not be used with vercel !!!!
-//app.listen(app.get("port"), () => {
-//    console.log(`Listening on port ${app.get("port")}`);
-//});
+if (!vercel) {
+    app.listen(app.get("port"), () => {
+        console.log(`Listening on port ${app.get("port")}`);
+    });
+}
 
 module.exports = app;
