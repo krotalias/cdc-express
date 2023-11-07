@@ -2,7 +2,7 @@
  * @file
  *
  * Summary.
- * <p><a href="../PDFs/refman.pdf#page=7">Desconto Racional por Dentro</a> versão nodejs/Express.</p>
+ * <p><a href="../PDFs/refman.pdf#page=7">Desconto Racional por Dentro</a> versão nodejs/Express/Vercel.</p>
  *
  * Usage:
  * <ul>
@@ -20,9 +20,9 @@
  * @see <a href="https://cdc-express.vercel.app">link</a>
  * @see https://expressjs.com
  * @see https://expressjs.com/en/guide/using-middleware.html
- * @see https://www.youtube.com/watch?v=JlgKybraoy4
  * @see https://expressjs.com/en/starter/static-files.html
- * @see https://shadowsmith.com/thoughts/how-to-deploy-an-express-api-to-vercel
+ * @see https://vercel.com/guides/using-express-with-vercel
+ * @see https://www.youtube.com/watch?v=JlgKybraoy4
  */
 
 "use strict";

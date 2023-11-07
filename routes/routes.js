@@ -22,19 +22,19 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 /**
- * Return an HTML page with the CDC calculation results.
+ * Returns an HTML page with the CDC calculation results.
  *
  * @param {Array<Number>} arr
  *  [parcelas, taxa, preço à vista, preço a prazo, valor a voltar, meses a voltar].
  * @param {Boolean} prt whether print output.
- * @returns HTML code.
+ * @returns {String} HTML code.
  */
-function createHTML(arr, prt) {
+function createHTML(arr, prt = false) {
     let [np, t, pv, pp, pb, nb] = arr;
     t *= 0.01;
     let [ti, i] = rational.getInterest(pp, pv, np);
     if (t === 0) t = ti * 0.01;
-    var cf = rational.CF(t, np);
+    let cf = rational.CF(t, np);
     let pmt = cf * pv;
     let ptb = rational.priceTable(np, pv, t, pmt);
     let hpt = rational.htmlPriceTable(ptb);
