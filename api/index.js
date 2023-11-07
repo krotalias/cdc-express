@@ -88,10 +88,6 @@ let root = "/api";
 // as well as call the timeLog middleware function that is specific to the route.
 app.use(root, indexRouter);
 
-app.get("/favicon.ico", (req, res) => {
-    res.sendFile("favicon.ico", { root: "public" });
-});
-
 // this should not be used with vercel !!!!
 if (!vercel) {
     app.listen(app.get("port"), () => {
