@@ -18,6 +18,7 @@
  * @see <a href="../api/index.js">source</a>
  * @see <a href="http://localhost:3000/cdc">link</a>
  * @see https://expressjs.com
+ * @see https://expressjs.com/en/guide/using-middleware.html
  * @see https://www.youtube.com/watch?v=JlgKybraoy4
  * @see https://expressjs.com/en/starter/static-files.html
  * @see https://shadowsmith.com/thoughts/how-to-deploy-an-express-api-to-vercel
@@ -38,9 +39,11 @@ app.set("port", process.env.PORT || 3000);
 app.use(express.static("public"));
 app.use(favicon(path.join("public", "favicon.ico")));
 
+// middleware
 app.use((req, res, next) => {
     const origin = req.get("referer");
     const isWhitelisted = whitelist.find((w) => origin && origin.includes(w));
+    console.log(isWhitelisted);
     if (isWhitelisted) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader(
@@ -58,6 +61,7 @@ app.use((req, res, next) => {
     else next();
 });
 
+// middleware
 const setContext = (req, res, next) => {
     if (!req.context) req.context = {};
     next();
@@ -74,8 +78,9 @@ app.get("/favicon.ico", (req, res) => {
     res.sendFile("favicon.ico", { root: "public" });
 });
 
-app.listen(app.get("port"), () => {
-    console.log(`Listening on port ${app.get("port")}`);
-});
+// this should not be used with vercel !!!!
+//app.listen(app.get("port"), () => {
+//    console.log(`Listening on port ${app.get("port")}`);
+//});
 
 module.exports = app;

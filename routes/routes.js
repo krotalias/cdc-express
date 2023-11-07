@@ -17,25 +17,31 @@ var express = require("express");
 var router = express.Router();
 const rational = require("../public/rational.cjs");
 
+// for POST
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+
 // middleware that is specific to this router
 router.use((req, res, next) => {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     console.log("Time: ", today.toISOString());
-    console.log(req.path);
-    console.log(req.url);
+    console.log(`${req.method}: url: ${req.url}, path: ${req.path}`);
+    console.log(req.get("referer"));
+    console.log(`context: ${JSON.stringify(req.context)}`);
     next();
 });
 
-router.get("/", (req, res) => {
-    let np = +req.query.np;
-    let pv = +req.query.pv;
-    let pp = +req.query.pp;
-    let pb = +req.query.pb;
-    let nb = +req.query.nb;
-    let t = +req.query.tax / 100;
-    let dp = typeof req.query.dp === "undefined" ? false : true;
-    rational.setDownPayment(dp);
+/**
+ * Return an HTML page with the CDC calculation results.
+ *
+ * @param {Array<Number>} arr
+ *  [parcelas, taxa, preço à vista, preço a prazo, valor a voltar, meses a voltar].
+ * @returns HTML code.
+ */
+function createHTML(arr) {
+    let [np, t, pv, pp, pb, nb] = arr;
+    t *= 0.01;
     let [ti, i] = rational.getInterest(pp, pv, np);
     if (t === 0) t = ti * 0.01;
     var cf = rational.CF(t, np);
@@ -45,7 +51,8 @@ router.get("/", (req, res) => {
     let val = rational.getDownPayment()
         ? ` + \$${pmt.toFixed(2)} = \$${(ptb.slice(-1)[0][1] + pmt).toFixed(2)}`
         : "";
-    res.send(`<html>
+
+    return `<html>
   <head>
       <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
       <link rel="stylesheet" href="cd.css">
@@ -80,10 +87,24 @@ router.get("/", (req, res) => {
       <h4>${hpt}</h4>
     </div>
   </body>
-  </html>`);
+  </html>`;
+}
+
+router.post("/", (req, res) => {
+    let arr = Object.keys(req.body).map((key) => +req.body[key]);
+    let dp = typeof arr[6] === "undefined" ? false : true;
+    rational.setDownPayment(dp);
+    res.send(createHTML(arr));
 });
 
-router.get("/cdc", (req, res) => {
+router.get("/", (req, res) => {
+    let arr = Object.keys(req.query).map((key) => +req.query[key]);
+    let dp = typeof arr[6] === "undefined" ? false : true;
+    rational.setDownPayment(dp);
+    res.send(createHTML(arr));
+});
+
+router.all("/cdc", (req, res) => {
     res.sendFile("cdc.html", { root: "public" });
 });
 

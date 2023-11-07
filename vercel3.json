@@ -1,0 +1,18 @@
+{
+    "builds": [
+        {
+            "src": "/api/index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/cdc",
+            "dest": "/cdc.html"
+        },
+        {
+            "src": "/api(.*)",
+            "dest": "/api"
+        }
+    ]
+}

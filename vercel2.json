@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+        { "source": "/api/cdc", "destination": "/cdc.html" },
+        { "source": "/api(.*)", "destination": "/api" }
+    ]
+}
