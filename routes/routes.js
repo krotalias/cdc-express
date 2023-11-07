@@ -7,7 +7,7 @@
  * @author Paulo Roma
  * @since 01/11/2023
  * @see <a href="../routes/routes.js">source</a>
- * @see <a href="http://localhost:3000/cdc">link</a>
+ * @see <a href="https://cdc-express.vercel.app">link</a>
  * @see https://expressjs.com/en/guide/routing.html#express-router
  */
 
@@ -87,7 +87,7 @@ router.post("/", (req, res) => {
         +req.body.pp,
         +req.body.pb,
         +req.body.nb,
-        +req.body.db,
+        +req.body.dp,
     ];
     let dp = typeof arr[7] === "undefined" ? false : true;
     rational.setDownPayment(dp);
@@ -102,7 +102,7 @@ router.get("/", (req, res) => {
         +req.query.pp,
         +req.query.pb,
         +req.query.nb,
-        +req.query.db,
+        +req.query.dp,
     ];
     let dp = typeof arr[7] === "undefined" ? false : true;
     rational.setDownPayment(dp);

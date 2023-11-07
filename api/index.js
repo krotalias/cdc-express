@@ -10,13 +10,13 @@
  *  <li>npm install express</li>
  *  <li>npm install serve-favicon</li>
  *  <li>npm start</li>
- *  <li>http://localhost:3000/cdc</li>
+ *  <li>https://cdc-express.vercel.app</li>
  * </ul>
  *
  * @author Paulo Roma
  * @since 01/11/2023
  * @see <a href="../api/index.js">source</a>
- * @see <a href="http://localhost:3000/cdc">link</a>
+ * @see <a href="https://cdc-express.vercel.app">link</a>
  * @see https://expressjs.com
  * @see https://expressjs.com/en/guide/using-middleware.html
  * @see https://www.youtube.com/watch?v=JlgKybraoy4

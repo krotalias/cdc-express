@@ -14,7 +14,7 @@
  * @author Paulo Roma
  * @since 24/10/2023
  * @see <a href="../public/rational.cjs">source</a>
- * @see <a href="http://localhost:3000/cdc">link</a>
+ * @see <a href="https://cdc-express.vercel.app">link</a>
  * @see <a href="https://www.uel.br/projetos/matessencial/basico/financeira/curso.html">Matemática Essencial</a>
  * @see <a href="https://calculador.com.br/calculo/financiamento-price">Financiamento Price</a>
  * @see <a href="https://dicascarrosusados.com/financiar-carro-por-cdc/">Financiar um carro por CDC</a>
