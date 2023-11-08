@@ -20,11 +20,14 @@
  * @see <a href="../package.json">package.json</a>
  * @see <a href="../vercel.json">vercel.json</a>
  * @see <a href="https://cdc-express.vercel.app">link</a>
+ * @see <a href="https://vercel.com/krotalias/cdc-express">vercel</a>
  * @see https://expressjs.com
  * @see https://expressjs.com/en/guide/using-middleware.html
  * @see https://expressjs.com/en/starter/static-files.html
- * @see https://vercel.com/guides/using-express-with-vercel
+ * @see https://expressjs.com/en/resources/middleware/cors.html
  * @see https://medium.com/zero-equals-false/using-cors-in-express-cac7e29b005b
+ * @see https://vercel.com/guides/using-express-with-vercel
+ * @see https://stackoverflow.com/questions/72584745/having-problem-deploying-express-server-on-vercel-404-page-not-found
  * @see https://www.youtube.com/watch?v=JlgKybraoy4
  */
 

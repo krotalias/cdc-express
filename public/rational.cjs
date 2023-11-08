@@ -4,7 +4,7 @@
  * Summary.
  * <p><a href="../PDFs/refman.pdf#page=7">Desconto Racional por Dentro</a>.</p>
  *
- * {@link https://nodejs.org/api/modules.html CommonJS} module version,
+ * Coded following {@link https://nodejs.org/api/modules.html CommonJS} module syntax,
  * which was the original way to package JavaScript code for Node.js.
  *
  * <p>In fact, since this script is meant to be run on the server, via nodejs (and not on the browser),
