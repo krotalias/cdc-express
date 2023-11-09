@@ -1,8 +1,12 @@
+/** @module */
+
 /**
  * @file
  *
  * Summary.
  * <p>CDC router.</p>
+ *
+ * @requires express
  *
  * @author Paulo Roma
  * @since 01/11/2023
@@ -83,6 +87,15 @@ function createHTML(arr, prt = false) {
   </html>`;
 }
 
+/**
+ * Route displaying CDC calculation results.
+ * @name post/api
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 router.post("/", (req, res) => {
     let arr = [
         +req.body.np,
@@ -92,12 +105,21 @@ router.post("/", (req, res) => {
         +req.body.pb,
         +req.body.nb,
     ];
-    let dp = typeof req.body.dp === "undefined" ? false : true;
-    let prt = typeof req.body.pdf === "undefined" ? false : true;
+    let dp = typeof req.body.dp !== "undefined";
+    let prt = typeof req.body.pdf !== "undefined";
     rational.setDownPayment(dp);
     res.send(createHTML(arr, prt));
 });
 
+/**
+ * Route displaying CDC calculation results.
+ * @name get/api
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 router.get("/", (req, res) => {
     let arr = [
         +req.query.np,
@@ -107,16 +129,34 @@ router.get("/", (req, res) => {
         +req.query.pb,
         +req.query.nb,
     ];
-    let dp = typeof req.query.dp === "undefined" ? false : true;
-    let prt = typeof req.query.pdf === "undefined" ? false : true;
+    let dp = typeof req.query.dp !== "undefined";
+    let prt = typeof req.query.pdf !== "undefined";
     rational.setDownPayment(dp);
     res.send(createHTML(arr, prt));
 });
 
+/**
+ * Route serving CDC main form.
+ * @name get/api/cdc
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 router.all("/cdc", (req, res) => {
     res.sendFile("cdc.html", { root: "public" });
 });
 
+/**
+ * Route displaying favicon.ico.
+ * @name get/api/favicon
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
 router.get("/favicon.ico", (req, res) => {
     res.sendFile("favicon.ico", { root: "public" });
 });

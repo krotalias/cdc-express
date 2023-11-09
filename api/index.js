@@ -14,6 +14,9 @@
  *  <li>https://cdc-express.vercel.app</li>
  * </ul>
  *
+ * @requires module:routes/routes
+ * @requires express
+ *
  * @author Paulo Roma
  * @since 01/11/2023
  * @see <a href="../api/index.js">source</a>
@@ -37,14 +40,13 @@ const vercel = true;
 
 const express = require("express");
 const indexRouter = require("../routes/routes.js");
+const app = express();
 
 if (!vercel) {
     const favicon = require("serve-favicon");
     const path = require("path");
     app.use(favicon(path.join("public", "favicon.ico")));
 }
-
-const app = express();
 
 const whitelist = ["*"];
 

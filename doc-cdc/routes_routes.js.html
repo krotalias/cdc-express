@@ -26,11 +26,15 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>/** @module */
+
+/**
  * @file
  *
  * Summary.
  * &lt;p>CDC router.&lt;/p>
+ *
+ * @requires express
  *
  * @author Paulo Roma
  * @since 01/11/2023
@@ -111,6 +115,15 @@ function createHTML(arr, prt = false) {
   &lt;/html>`;
 }
 
+/**
+ * Route displaying CDC calculation results.
+ * @name post/api
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 router.post("/", (req, res) => {
     let arr = [
         +req.body.np,
@@ -120,12 +133,21 @@ router.post("/", (req, res) => {
         +req.body.pb,
         +req.body.nb,
     ];
-    let dp = typeof req.body.dp === "undefined" ? false : true;
-    let prt = typeof req.body.pdf === "undefined" ? false : true;
+    let dp = typeof req.body.dp !== "undefined";
+    let prt = typeof req.body.pdf !== "undefined";
     rational.setDownPayment(dp);
     res.send(createHTML(arr, prt));
 });
 
+/**
+ * Route displaying CDC calculation results.
+ * @name get/api
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 router.get("/", (req, res) => {
     let arr = [
         +req.query.np,
@@ -135,16 +157,34 @@ router.get("/", (req, res) => {
         +req.query.pb,
         +req.query.nb,
     ];
-    let dp = typeof req.query.dp === "undefined" ? false : true;
-    let prt = typeof req.query.pdf === "undefined" ? false : true;
+    let dp = typeof req.query.dp !== "undefined";
+    let prt = typeof req.query.pdf !== "undefined";
     rational.setDownPayment(dp);
     res.send(createHTML(arr, prt));
 });
 
+/**
+ * Route serving CDC main form.
+ * @name get/api/cdc
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 router.all("/cdc", (req, res) => {
     res.sendFile("cdc.html", { root: "public" });
 });
 
+/**
+ * Route displaying favicon.ico.
+ * @name get/api/favicon
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
 router.get("/favicon.ico", (req, res) => {
     res.sendFile("favicon.ico", { root: "public" });
 });
@@ -160,13 +200,13 @@ module.exports = router;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#CF">CF</a></li><li><a href="global.html#appendToDiv">appendToDiv</a></li><li><a href="global.html#cdcCLI">cdcCLI</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#crlf">crlf</a></li><li><a href="global.html#formatRow">formatRow</a></li><li><a href="global.html#futureValue">futureValue</a></li><li><a href="global.html#getDownPayment">getDownPayment</a></li><li><a href="global.html#getInterest">getInterest</a></li><li><a href="global.html#getInterest2">getInterest2</a></li><li><a href="global.html#htmlPriceTable">htmlPriceTable</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#nodePriceTable">nodePriceTable</a></li><li><a href="global.html#presentValue">presentValue</a></li><li><a href="global.html#priceTable">priceTable</a></li><li><a href="global.html#pt">pt</a></li><li><a href="global.html#rational_discount">rational_discount</a></li><li><a href="global.html#result">result</a></li><li><a href="global.html#setDownPayment">setDownPayment</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routes_routes.html">routes/routes</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CF">CF</a></li><li><a href="global.html#appendToDiv">appendToDiv</a></li><li><a href="global.html#cdcCLI">cdcCLI</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#crlf">crlf</a></li><li><a href="global.html#formatRow">formatRow</a></li><li><a href="global.html#futureValue">futureValue</a></li><li><a href="global.html#getDownPayment">getDownPayment</a></li><li><a href="global.html#getInterest">getInterest</a></li><li><a href="global.html#getInterest2">getInterest2</a></li><li><a href="global.html#htmlPriceTable">htmlPriceTable</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#nodePriceTable">nodePriceTable</a></li><li><a href="global.html#presentValue">presentValue</a></li><li><a href="global.html#priceTable">priceTable</a></li><li><a href="global.html#pt">pt</a></li><li><a href="global.html#rational_discount">rational_discount</a></li><li><a href="global.html#result">result</a></li><li><a href="global.html#setDownPayment">setDownPayment</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Wed Nov 08 2023 14:09:46 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 09 2023 09:03:05 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
