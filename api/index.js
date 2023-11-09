@@ -40,56 +40,25 @@ const vercel = true;
 
 const express = require("express");
 const indexRouter = require("../routes/routes.js");
+const cors = require("cors");
 const app = express();
+
+app.set("port", process.env.PORT || 3000);
+app.use(cors());
+app.use(express.static("public"));
 
 if (!vercel) {
     const favicon = require("serve-favicon");
     const path = require("path");
     app.use(favicon(path.join("public", "favicon.ico")));
-}
 
-const whitelist = ["*"];
-
-app.set("port", process.env.PORT || 3000);
-app.use(express.static("public"));
-
-// middleware
-app.use((req, res, next) => {
-    const origin = req.get("referer");
-    const isWhitelisted = whitelist.find((w) => origin && origin.includes(w));
-    if (isWhitelisted) {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader(
-            "Access-Control-Allow-Methods",
-            "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-        );
-        res.setHeader(
-            "Access-Control-Allow-Headers",
-            "X-Requested-With,Content-Type,Authorization"
-        );
-        res.setHeader("Access-Control-Allow-Credentials", true);
-    }
-    // Pass to next layer of middleware
-    if (req.method === "OPTIONS") res.sendStatus(200);
-    else next();
-});
-
-// middleware
-if (!vercel) {
-    const setContext = (req, res, next) => {
-        if (!req.context) req.context = {};
-        next();
-    };
-    app.use(setContext);
-
-    // middleware that is specific to this router
+    // middleware
     app.use((req, res, next) => {
         const timeElapsed = Date.now();
         const today = new Date(timeElapsed);
         console.log("Time: ", today.toISOString());
         console.log(`${req.method}: url: ${req.url}, path: ${req.path}`);
         console.log(req.get("referer"));
-        console.log(`context: ${JSON.stringify(req.context)}`);
         next();
     });
 }
