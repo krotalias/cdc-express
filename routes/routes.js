@@ -17,13 +17,31 @@
 
 "use strict";
 
-var express = require("express");
-var router = express.Router();
 const rational = require("../public/rational.cjs");
+const express = require("express");
+/**
+ * @var {router} router Express router.
+ * @see https://expressjs.com/en/4x/api.html#router
+ */
+const router = express.Router();
 
 // for POST
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+
+/**
+ * Middleware functions are functions that have access to the request object (req),
+ * the response object (res), and the next function in the application’s request-response cycle.
+ *
+ * <p>The next function is a function in the Express router which, when invoked,
+ * executes the middleware succeeding the current middleware.</p>
+ *
+ * @callback middleware
+ * @param {Object} req HTTP request argument to the middleware function, called "req" by convention.
+ * @param {Object} res HTTP response argument to the middleware function, called "res" by convention.
+ * @param {Object} next Callback argument to the middleware function, called "next" by convention.
+ * @see https://expressjs.com/en/guide/writing-middleware.html
+ */
 
 /**
  * Returns an HTML page with the CDC calculation results.
@@ -93,8 +111,8 @@ function createHTML(arr, prt = false) {
  * @function
  * @memberof module:routes/routes
  * @inner
- * @param {String} path - Express path.
- * @param {callback} middleware - Express middleware.
+ * @param {String} path - path for which the middleware function is invoked.
+ * @param {middleware} callback - a middleware function.
  */
 router.post("/", (req, res) => {
     let arr = [
@@ -117,8 +135,8 @@ router.post("/", (req, res) => {
  * @function
  * @memberof module:routes/routes
  * @inner
- * @param {String} path - Express path.
- * @param {callback} middleware - Express middleware.
+ * @param {String} path - path for which the middleware function is invoked.
+ * @param {middleware} callback - a middleware function.
  */
 router.get("/", (req, res) => {
     let arr = [
@@ -141,8 +159,8 @@ router.get("/", (req, res) => {
  * @function
  * @memberof module:routes/routes
  * @inner
- * @param {String} path - Express path.
- * @param {callback} middleware - Express middleware.
+ * @param {String} path - path for which the middleware function is invoked.
+ * @param {middleware} callback - a middleware function.
  */
 router.all("/cdc", (req, res) => {
     res.sendFile("cdc.html", { root: "public" });
@@ -154,8 +172,8 @@ router.all("/cdc", (req, res) => {
  * @function
  * @memberof module:routes/routes
  * @inner
- * @param {String} path - Express path
- * @param {callback} middleware - Express middleware.
+ * @param {String} path - path for which the middleware function is invoked.
+ * @param {middleware} callback - a middleware function.
  */
 router.get("/favicon.ico", (req, res) => {
     res.sendFile("favicon.ico", { root: "public" });

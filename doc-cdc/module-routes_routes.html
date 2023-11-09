@@ -96,6 +96,89 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~router"><span class="type-signature">(inner) </span>router<span class="type-signature"> :router</span></h4>
+
+
+
+
+<div class="description">
+    Express router.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">router</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://expressjs.com/en/4x/api.html#router">https://expressjs.com/en/4x/api.html#router</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -242,7 +325,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line36">line 36</a>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line54">line 54</a>
     </li></ul></dd>
     
 
@@ -300,7 +383,7 @@
     
 
     
-    <h4 class="name" id="~get/api"><span class="type-signature">(inner) </span>get/api<span class="signature">(path, middleware)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~get/api"><span class="type-signature">(inner) </span>get/api<span class="signature">(path, callback)</span><span class="type-signature"></span></h4>
     
 
     
@@ -360,20 +443,20 @@
 
             
 
-            <td class="description last">Express path.</td>
+            <td class="description last">path for which the middleware function is invoked.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>middleware</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">callback</span>
+<span class="param-type">middleware</span>
 
 
             
@@ -383,7 +466,7 @@
 
             
 
-            <td class="description last">Express middleware.</td>
+            <td class="description last">a middleware function.</td>
         </tr>
 
     
@@ -424,7 +507,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line114">line 114</a>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -460,7 +543,7 @@
     
 
     
-    <h4 class="name" id="~get/api/cdc"><span class="type-signature">(inner) </span>get/api/cdc<span class="signature">(path, middleware)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~get/api/cdc"><span class="type-signature">(inner) </span>get/api/cdc<span class="signature">(path, callback)</span><span class="type-signature"></span></h4>
     
 
     
@@ -520,20 +603,20 @@
 
             
 
-            <td class="description last">Express path.</td>
+            <td class="description last">path for which the middleware function is invoked.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>middleware</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">callback</span>
+<span class="param-type">middleware</span>
 
 
             
@@ -543,7 +626,7 @@
 
             
 
-            <td class="description last">Express middleware.</td>
+            <td class="description last">a middleware function.</td>
         </tr>
 
     
@@ -584,7 +667,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line138">line 138</a>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -620,7 +703,7 @@
     
 
     
-    <h4 class="name" id="~get/api/favicon"><span class="type-signature">(inner) </span>get/api/favicon<span class="signature">(path, middleware)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~get/api/favicon"><span class="type-signature">(inner) </span>get/api/favicon<span class="signature">(path, callback)</span><span class="type-signature"></span></h4>
     
 
     
@@ -680,20 +763,20 @@
 
             
 
-            <td class="description last">Express path</td>
+            <td class="description last">path for which the middleware function is invoked.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>middleware</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">callback</span>
+<span class="param-type">middleware</span>
 
 
             
@@ -703,7 +786,7 @@
 
             
 
-            <td class="description last">Express middleware.</td>
+            <td class="description last">a middleware function.</td>
         </tr>
 
     
@@ -744,7 +827,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line151">line 151</a>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -780,7 +863,7 @@
     
 
     
-    <h4 class="name" id="~post/api"><span class="type-signature">(inner) </span>post/api<span class="signature">(path, middleware)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~post/api"><span class="type-signature">(inner) </span>post/api<span class="signature">(path, callback)</span><span class="type-signature"></span></h4>
     
 
     
@@ -840,20 +923,20 @@
 
             
 
-            <td class="description last">Express path.</td>
+            <td class="description last">path for which the middleware function is invoked.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>middleware</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">callback</span>
+<span class="param-type">middleware</span>
 
 
             
@@ -863,7 +946,7 @@
 
             
 
-            <td class="description last">Express middleware.</td>
+            <td class="description last">a middleware function.</td>
         </tr>
 
     
@@ -904,7 +987,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line90">line 90</a>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -938,6 +1021,204 @@
     
 
     
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+
+    
+
+    
+    <h4 class="name" id="~middleware"><span class="type-signature"></span>middleware<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Middleware functions are functions that have access to the request object (req),
+the response object (res), and the next function in the application’s request-response cycle.
+
+<p>The next function is a function in the Express router which, when invoked,
+executes the middleware succeeding the current middleware.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTTP request argument to the middleware function, called "req" by convention.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTTP response argument to the middleware function, called "res" by convention.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback argument to the middleware function, called "next" by convention.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_routes.js.html">routes/routes.js</a>, <a href="routes_routes.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://expressjs.com/en/guide/writing-middleware.html">https://expressjs.com/en/guide/writing-middleware.html</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+    
 
     
 </article>
@@ -956,7 +1237,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 09 2023 09:03:05 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 09 2023 10:15:39 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
