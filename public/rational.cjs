@@ -238,6 +238,7 @@ function CF(i, n) {
  * @return {String} answer as a raw string or in HTML format.
  */
 function rational_discount(p, t, x, y, option = true) {
+    result = "";
     if (y >= x) {
         log("Preço à vista deve ser menor do que o preço total:");
     } else {
