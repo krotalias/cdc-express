@@ -200,7 +200,7 @@ router.all("/cdc", (req, res) => {
 
 /**
  * Route displaying favicon.ico.
- * @name get/api/favicon
+ * @name get/favicon
  * @function
  * @memberof module:routes/routes
  * @inner
@@ -208,12 +208,12 @@ router.all("/cdc", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/favicon.ico", (req, res) => {
-    res.sendFile("favicon.ico", { root: "public" });
+    res.sendFile("favicon.ico");
 });
 
 /**
  * Route for sending the style sheet.
- * @name get/api/cd.css
+ * @name get/cd.css
  * @function
  * @memberof module:routes/routes
  * @inner
@@ -221,7 +221,7 @@ router.get("/favicon.ico", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/cd.css", (req, res) => {
-    res.sendFile("cd.css", { root: "public" });
+    res.sendFile("cd.css");
 });
 
 module.exports = router;
