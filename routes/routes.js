@@ -172,7 +172,7 @@ router.get("/cgi", (req, res) => {
     res.send(`<html>
     <head>
         <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
-        <link rel="stylesheet" href="cd.css">
+        <link rel="stylesheet" href="/cd.css">
     </head>
     <body style="background-image: url('/IMAGEM/stone/yell_roc.jpg')">
       <div id="redBox" class="rectangle">
@@ -220,7 +220,7 @@ router.get("/favicon.ico", (req, res) => {
  * @param {String} path - path for which the middleware function is invoked.
  * @param {middleware} callback - a middleware function.
  */
-router.get("/api/cd.css", (req, res) => {
+router.get("/cd.css", (req, res) => {
     res.sendFile("cd.css");
 });
 
