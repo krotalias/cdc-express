@@ -242,6 +242,11 @@ function rational_discount(p, t, x, y, option = true) {
     if (y >= x) {
         log("Preço à vista deve ser menor do que o preço total:");
     } else {
+        let [interest, niter] = getInterest(x, y, p);
+        if (t == 0) {
+            t = 0.01 * interest;
+        }
+
         let [fx, ux] = presentValue(x, p, t);
         if (y <= 0) {
             y = ux;
@@ -260,11 +265,6 @@ function rational_discount(p, t, x, y, option = true) {
         }
         let delta_p = ux - y;
         let prct = (delta_p / ux) * 100.0;
-
-        let [interest, niter] = getInterest(x, y, p);
-        if (t == 0) {
-            t = 0.01 * interest;
-        }
 
         log(
             `Taxa Real = ${interest.toFixed(
