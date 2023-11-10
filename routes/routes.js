@@ -154,6 +154,38 @@ router.get("/", (req, res) => {
 });
 
 /**
+ * Route displaying CDC rational discount.
+ * @name get/api/cgi
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - path for which the middleware function is invoked.
+ * @param {middleware} callback - a middleware function.
+ */
+router.get("/cgi", (req, res) => {
+    let arr = [+req.query.np, +req.query.tax, +req.query.pv, +req.query.pp];
+    let [np, t, pv, pp] = arr;
+    let dp = typeof req.query.dp !== "undefined";
+    let prt = typeof req.query.pdf !== "undefined";
+    rational.setDownPayment(dp);
+    let result = rational.rational_discount(np, t * 0.01, pp, pv, true);
+    res.send(`<html>
+    <head>
+        <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
+        <link rel="stylesheet" href="cd.css">
+    </head>
+    <body style="background-image: url('/IMAGEM/stone/yell_roc.jpg')">
+      <div id="redBox" class="rectangle">
+        <p>${result}</p>
+      </div>
+      <script>
+        ${prt ? "print()" : ""};
+      </script>
+    </body>
+    </html>`);
+});
+
+/**
  * Route serving CDC main form.
  * @name get/api/cdc
  * @function
@@ -177,6 +209,19 @@ router.all("/cdc", (req, res) => {
  */
 router.get("/favicon.ico", (req, res) => {
     res.sendFile("favicon.ico", { root: "public" });
+});
+
+/**
+ * Route for sending the style sheet.
+ * @name get/api/cd.css
+ * @function
+ * @memberof module:routes/routes
+ * @inner
+ * @param {String} path - path for which the middleware function is invoked.
+ * @param {middleware} callback - a middleware function.
+ */
+router.get("/cd.css", (req, res) => {
+    res.sendFile("cd.css", { root: "public" });
 });
 
 module.exports = router;

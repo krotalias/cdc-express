@@ -26,14 +26,14 @@
 "use strict";
 
 /**
- * @var {HTMLElement} result &lt;div&gt; element.
+ * @var {HTMLElement|String} result &lt;div&gt; element.
  */
-let result;
+let result = "";
 
 /**
  * @var {function} log output to node or browser.
  */
-let log = typeof process === "object" ? console.log : appendToDiv;
+let log = typeof process === "object" ? appendToString : appendToDiv;
 
 /**
  * Appends a string to a div with a given id.
@@ -41,12 +41,20 @@ let log = typeof process === "object" ? console.log : appendToDiv;
  * @param {String} id given id.
  */
 function appendToDiv(str, id = "#rational") {
-    if (result === undefined) {
+    if (typeof result === "string") {
         result = document.querySelector(id);
         result.innerHTML += `${str}${crlf}`;
     } else {
         result.innerHTML += `${str}${crlf}`;
     }
+}
+
+/**
+ * Appends a string to another (result) string.
+ * @param {String} str a string.
+ */
+function appendToString(str) {
+    result = result.concat(str, "<br>");
 }
 
 /**
@@ -227,6 +235,7 @@ function CF(i, n) {
  * @param {Number} x preço a prazo.
  * @param {Number} y preço à vista.
  * @param {Boolean} option seleciona o que será impresso.
+ * @return {String} answer as a raw string or in HTML format.
  */
 function rational_discount(p, t, x, y, option = true) {
     if (y >= x) {
@@ -299,6 +308,7 @@ function rational_discount(p, t, x, y, option = true) {
             }
         }
     }
+    return result;
 }
 
 /**
@@ -621,6 +631,7 @@ module.exports = {
     getInterest,
     getDownPayment,
     setDownPayment,
+    rational_discount,
 };
 
 // called directly via command line interface (CLI)
