@@ -262,6 +262,9 @@ function rational_discount(p, t, x, y, option = true) {
         let prct = (delta_p / ux) * 100.0;
 
         let [interest, niter] = getInterest(x, y, p);
+        if (t == 0) {
+            t = 0.01 * interest;
+        }
 
         log(
             `Taxa Real = ${interest.toFixed(
