@@ -213,14 +213,14 @@ router.get("/favicon.ico", (req, res) => {
 
 /**
  * Route for sending the style sheet.
- * @name get/cd.css
+ * @name get/api/cd.css
  * @function
  * @memberof module:routes/routes
  * @inner
  * @param {String} path - path for which the middleware function is invoked.
  * @param {middleware} callback - a middleware function.
  */
-router.get("/cd.css", (req, res) => {
+router.get("/api/cd.css", (req, res) => {
     res.sendFile("cd.css");
 });
 
