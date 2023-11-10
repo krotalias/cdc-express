@@ -208,7 +208,7 @@ router.all("/cdc", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/favicon.ico", (req, res) => {
-    res.sendFile("favicon.ico");
+    res.sendFile("favicon.ico", { root: "public" });
 });
 
 /**
@@ -221,7 +221,7 @@ router.get("/favicon.ico", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/cd.css", (req, res) => {
-    res.sendFile("cd.css");
+    res.sendFile("cd.css", { root: "public" });
 });
 
 module.exports = router;
