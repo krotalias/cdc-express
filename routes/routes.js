@@ -173,10 +173,22 @@ router.get("/cgi", (req, res) => {
     <head>
         <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
         <link rel="stylesheet" href="/cd.css">
+        <style>
+            body {
+                background-color: #f0f0f2;
+                background-image: url("/IMAGEM/stone/yell_roc.jpg");
+                margin: 0;
+                padding: 1em;
+            }
+        </style>
     </head>
-    <body style="background-image: url('/IMAGEM/stone/yell_roc.jpg')">
+    <body>
       <div id="redBox" class="rectangle">
-        <p>${result}</p>
+        <pre>
+        <code>
+          <p>${result}</p>
+        </code>
+        </pre>
       </div>
       <script>
         ${prt ? "print()" : ""};

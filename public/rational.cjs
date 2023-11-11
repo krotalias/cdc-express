@@ -54,7 +54,7 @@ function appendToDiv(str, id = "#rational") {
  * @param {String} str a string.
  */
 function appendToString(str) {
-    result = result.concat(str, "<br>");
+    result = result.concat(str, crlf);
 }
 
 /**
@@ -76,17 +76,26 @@ const pt = {
 /**
  * @var {String} crlf newline.
  */
-const crlf = typeof process === "object" ? "\n" : "<br>";
+const crlf = "<br>";
 
 /**
- * Seleciona pagamento mensal com ou sem entrada (down payment).
+ * Create and initialize the "static" variable.
+ * Function declarations are processed before code is executed, so
+ * we really can do this assignment before the function declaration.
+ */
+setDownPayment.downP = false;
+
+/**
+ * <p>Seleciona pagamento mensal com ou sem entrada (down payment).</p>
+ * Holds a "static" property of itself to keep track
+ * of the last value set.
  * @param {Boolean} dp down payment.
+ * @property {Boolean} downP whether there is a down payment or not.
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
  */
 function setDownPayment(dp = true) {
     setDownPayment.downP = dp;
 }
-
-setDownPayment.downP = false;
 
 /**
  * Retorna o tipo de pagamento mensal (down payment).
@@ -311,6 +320,12 @@ function rational_discount(p, t, x, y, option = true) {
                 log("Você está sendo roubado.");
             }
         }
+
+        let cf = CF(t, p);
+        let pmt = y * cf;
+        let ptb = priceTable(p, y, t, pmt);
+        log(crlf);
+        log(nodePriceTable(ptb));
     }
     return result;
 }
