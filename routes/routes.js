@@ -79,6 +79,11 @@ function createHTML(arr, prt = false) {
     if (t === 0) t = ti * 0.01;
     let cf = rational.CF(t, np);
     let pmt = cf * pv;
+    if (rational.getDownPayment()) {
+        pmt /= 1 + t;
+        np -= 1; // uma prestação a menos
+        pv -= pmt; // preço à vista menos a entrada
+    }
     let ptb = rational.priceTable(np, pv, t, pmt);
     let hpt = rational.htmlPriceTable(ptb);
 
