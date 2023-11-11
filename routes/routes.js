@@ -6,6 +6,27 @@
  * Summary.
  * <p>CDC router.</p>
  *
+ * {@link https://vercel.com/guides/using-express-with-vercel Vercel}
+ * seems to require a /api folder with an index.js file in it to work.
+ * Static files, such as .css and .html, lie in /public folder.
+ *
+ * <p>Therefore, it loads files directly from /public or /api, e.g.,</p>
+ * <ul>
+ *   <li>{@link https://cdc-express.vercel.app/}, </li>
+ *   <li>{@link https://cdc-express.vercel.app/api/cgi?np=10&tax=0&pv=450&pp=500}, </li>
+ *   <li>{@link https://cdc-express.vercel.app/favicon.ico} or </li>
+ *   <li>{@link https://cdc-express.vercel.app/cd.css}.</li>
+ * </ul>
+ *
+ * <p>However, running locally, it would be</p>
+ * <ul>
+ *   <li>{@link http://localhost:3000/api/cdc},</li>
+ *   <li>{@link http://localhost:3000/api/cgi?np=10&tax=0&pv=450&pp=500},</li>
+ *   <li>{@link http://localhost:3000/api/favicon.ico} or</li>
+ *   <li>{@link http://localhost:3000/api/cd.css}.</li>
+ * </ul>
+ *
+ * @requires module:rational
  * @requires express
  *
  * @author Paulo Roma
@@ -67,7 +88,7 @@ function createHTML(arr, prt = false) {
     return `<html>
   <head>
       <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
-      <link rel="stylesheet" href="cd.css">
+      <link rel="stylesheet" href="/cd.css">
   </head>
   <body style="background-image: url('/IMAGEM/stone/yell_roc.jpg')">
     <div id="greenBox" class="rectangle">
@@ -212,7 +233,7 @@ router.all("/cdc", (req, res) => {
 
 /**
  * Route displaying favicon.ico.
- * @name get/favicon
+ * @name get/api/favicon
  * @function
  * @memberof module:routes/routes
  * @inner
