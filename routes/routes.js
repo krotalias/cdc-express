@@ -79,7 +79,8 @@ function createHTML(arr, prt = false) {
     if (t === 0) t = ti * 0.01;
     let cf = rational.CF(t, np);
     let pmt = cf * pv;
-    if (rational.getDownPayment()) {
+    let dp = rational.getDownPayment();
+    if (dp) {
         pmt /= 1 + t;
         np -= 1; // uma prestação a menos
         pv -= pmt; // preço à vista menos a entrada
@@ -94,7 +95,7 @@ function createHTML(arr, prt = false) {
   </head>
   <body style="background-image: url('/IMAGEM/stone/yell_roc.jpg')">
     <div id="greenBox" class="rectangle">
-      <h4>Parcelamento: ${np} meses</h4>
+      <h4>Parcelamento: ${dp ? "1+" : ""}${np} meses</h4>
       <h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
         ((1 + t) ** 12 - 1) *
         100.0
@@ -103,7 +104,7 @@ function createHTML(arr, prt = false) {
       <h4>Valor Final: \$${pp.toFixed(2)}</h4>
       <h4>Valor a Voltar: \$${pb.toFixed(2)}</h4>
       <h4>Meses a Voltar: ${nb}</h4>
-      <h4>Entrada: ${rational.getDownPayment()}</h4>
+      <h4>Entrada: ${dp}</h4>
     </div>
 
     <div id="blueBox" class="rectangle">
