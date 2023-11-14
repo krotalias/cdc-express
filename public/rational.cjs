@@ -327,6 +327,12 @@ function rational_discount(p, t, x, y, option = true) {
 
         let cf = CF(t, p);
         let pmt = y * cf;
+        if (getDownPayment()) {
+            pmt /= 1 + t;
+            p -= 1; // uma prestação a menos
+            y -= pmt; // preço à vista menos a entrada
+            cf = pmt / y; // recalculate cf
+        }
         let ptb = priceTable(p, y, t, pmt);
         log(crlf);
         log(nodePriceTable(ptb));
