@@ -73,23 +73,36 @@ router.use(express.urlencoded({ extended: true }));
  * @returns {String} HTML code.
  */
 function createHTML(arr, prt = false) {
-    let [np, t, pv, pp, pb, nb] = arr;
-    t *= 0.01;
-    let [ti, i] = rational.getInterest(pp, pv, np);
-    if (t === 0) t = ti * 0.01;
-    let cf = rational.CF(t, np);
-    let pmt = cf * pv;
-    let dp = rational.getDownPayment();
-    if (dp) {
-        pmt /= 1 + t; // diminui a prestação
-        np -= 1; // uma prestação a menos
-        pv -= pmt; // preço à vista menos a entrada
-        cf = pmt / pv; // recalculate cf
-    }
-    let ptb = rational.priceTable(np, pv, t, pmt);
-    let hpt = rational.htmlPriceTable(ptb);
+  let [np, t, pv, pp, pb, nb] = arr;
+  t *= 0.01;
 
-    return `<html>
+  let pmt = 0;
+  let cf = 0;
+  let i = 0;
+  let ti = 0;
+  let message = "";
+
+  try {
+    [ti, i] = rational.getInterest(pp, pv, np);
+    if (t === 0) t = ti * 0.01;
+    cf = rational.CF(t, np);
+    pmt = cf * pv;
+  } catch (e) {
+    message += e.message;
+  } finally {
+    var dp = rational.getDownPayment();
+    if (dp) {
+      np -= 1; // uma prestação a menos
+      pmt /= 1 + t; // diminui a prestação
+      pv -= pmt; // preço à vista menos a entrada
+      cf = pmt / pv; // recalculate cf
+    }
+  }
+
+  let ptb = rational.priceTable(np, pv, t, pmt);
+  let hpt = rational.htmlPriceTable(ptb);
+
+  return `<html>
   <head>
       <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
       <link rel="stylesheet" href="/cd.css">
@@ -98,9 +111,9 @@ function createHTML(arr, prt = false) {
     <div id="greenBox" class="rectangle">
       <h4>Parcelamento: ${dp ? "1+" : ""}${np} meses</h4>
       <h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
-        ((1 + t) ** 12 - 1) *
-        100.0
-    ).toFixed(2)}% ao ano</h4>
+    ((1 + t) ** 12 - 1) *
+    100.0
+  ).toFixed(2)}% ao ano</h4>
       <h4>Valor Financiado: \$${pv.toFixed(2)}</h4>
       <h4>Valor Final: \$${pp.toFixed(2)}</h4>
       <h4>Valor a Voltar: \$${pb.toFixed(2)}</h4>
@@ -109,16 +122,18 @@ function createHTML(arr, prt = false) {
     </div>
 
     <div id="blueBox" class="rectangle">
+      <h2><mark>${message}</mark></h2>
       <h4>Coeficiente de Financiamento: ${cf.toFixed(6)}</h4>
-      <h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(
-        2
-    )} ao mês</h4>
+      <h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${(t > 0
+    ? pmt
+    : pp / np
+  ).toFixed(2)} ao mês</h4>
       <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
       <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
       <h4>Valor Corrigido: \$${
-          pb > 0 && nb > 0
-              ? rational.presentValue(pb, nb, t, false)[1].toFixed(2)
-              : 0
+        pb > 0 && nb > 0
+          ? rational.presentValue(pb, nb, t, false)[1].toFixed(2)
+          : 0
       }</h4>
     </div>
 
@@ -142,18 +157,18 @@ function createHTML(arr, prt = false) {
  * @param {middleware} callback - a middleware function.
  */
 router.post("/", (req, res) => {
-    let arr = [
-        +req.body.np,
-        +req.body.tax,
-        +req.body.pv,
-        +req.body.pp,
-        +req.body.pb,
-        +req.body.nb,
-    ];
-    let dp = typeof req.body.dp !== "undefined";
-    let prt = typeof req.body.pdf !== "undefined";
-    rational.setDownPayment(dp);
-    res.send(createHTML(arr, prt));
+  let arr = [
+    +req.body.np,
+    +req.body.tax,
+    +req.body.pv,
+    +req.body.pp,
+    +req.body.pb,
+    +req.body.nb,
+  ];
+  let dp = typeof req.body.dp !== "undefined";
+  let prt = typeof req.body.pdf !== "undefined";
+  rational.setDownPayment(dp);
+  res.send(createHTML(arr, prt));
 });
 
 /**
@@ -166,18 +181,18 @@ router.post("/", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/", (req, res) => {
-    let arr = [
-        +req.query.np,
-        +req.query.tax,
-        +req.query.pv,
-        +req.query.pp,
-        +req.query.pb,
-        +req.query.nb,
-    ];
-    let dp = typeof req.query.dp !== "undefined";
-    let prt = typeof req.query.pdf !== "undefined";
-    rational.setDownPayment(dp);
-    res.send(createHTML(arr, prt));
+  let arr = [
+    +req.query.np,
+    +req.query.tax,
+    +req.query.pv,
+    +req.query.pp,
+    +req.query.pb,
+    +req.query.nb,
+  ];
+  let dp = typeof req.query.dp !== "undefined";
+  let prt = typeof req.query.pdf !== "undefined";
+  rational.setDownPayment(dp);
+  res.send(createHTML(arr, prt));
 });
 
 /**
@@ -190,13 +205,13 @@ router.get("/", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/cgi", (req, res) => {
-    let arr = [+req.query.np, +req.query.tax, +req.query.pv, +req.query.pp];
-    let [np, t, pv, pp] = arr;
-    let dp = typeof req.query.dp !== "undefined";
-    let prt = typeof req.query.pdf !== "undefined";
-    rational.setDownPayment(dp);
-    let result = rational.rational_discount(np, t * 0.01, pp, pv, true);
-    res.send(`<html>
+  let arr = [+req.query.np, +req.query.tax, +req.query.pv, +req.query.pp];
+  let [np, t, pv, pp] = arr;
+  let dp = typeof req.query.dp !== "undefined";
+  let prt = typeof req.query.pdf !== "undefined";
+  rational.setDownPayment(dp);
+  let result = rational.rational_discount(np, t * 0.01, pp, pv, true);
+  res.send(`<html>
     <head>
         <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
         <link rel="stylesheet" href="/cd.css">
@@ -234,7 +249,7 @@ router.get("/cgi", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.all("/cdc", (req, res) => {
-    res.sendFile("cdc.html", { root: "public" });
+  res.sendFile("cdc.html", { root: "public" });
 });
 
 /**
@@ -247,7 +262,7 @@ router.all("/cdc", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/favicon.ico", (req, res) => {
-    res.sendFile("favicon.ico", { root: "public" });
+  res.sendFile("favicon.ico", { root: "public" });
 });
 
 /**
@@ -260,7 +275,7 @@ router.get("/favicon.ico", (req, res) => {
  * @param {middleware} callback - a middleware function.
  */
 router.get("/cd.css", (req, res) => {
-    res.sendFile("cd.css", { root: "public" });
+  res.sendFile("cd.css", { root: "public" });
 });
 
 module.exports = router;
