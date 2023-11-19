@@ -150,6 +150,9 @@ function isNegative0(x) {
  * @param {Number} y preço à vista.
  * @param {Number} p número de parcelas.
  * @return {Array<Number,Number>} [taxa, número de iterações].
+ * @see https://www.whitman.edu/documents/Academics/Mathematics/burton.pdf
+ * @see https://math.unm.edu/~motamed/Teaching/OLD/Fall20/HPSC/newton.html
+ * @see <img src="../public/newton_fig.png" alt="Newton Method">
  */
 function getInterest(x, y, p) {
   if (!getDownPayment()) {
@@ -173,7 +176,7 @@ function getInterest(x, y, p) {
     t2 = t - d / dt;
   }
   if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
-  if (t2 > 1) throw new Error("Newton rate too high!");
+  if (t2 > 1) throw new Error("Newton interest rate > 100%");
   return [t2 * 100.0, n];
 }
 
@@ -211,7 +214,7 @@ function getInterest2(x, y, p) {
     t2 = t - d / dt;
   }
   if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
-  if (t2 > 1) throw new Error("Newton rate too high!");
+  if (t2 > 1) throw new Error("Newton interest rate > 100%");
   return [t2 * 100.0, n];
 }
 
