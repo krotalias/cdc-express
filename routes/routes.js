@@ -104,6 +104,10 @@ function createHTML(arr, prt = false) {
   let ptb = rational.priceTable(np, pv, t, pmt);
   let hpt = rational.htmlPriceTable(ptb);
 
+  if (pb == 0 && nb > 0) {
+    pb = pmt * nb;
+  }
+
   return `<html>
   <head>
       <title>CDC - Crédito Direto ao Consumidor (nodejs)</title>
@@ -133,9 +137,7 @@ function createHTML(arr, prt = false) {
       <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
       <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
       <h4>Valor Corrigido: \$${
-        pb > 0 && nb > 0
-          ? rational.presentValue(pb, nb, t, false)[1].toFixed(2)
-          : 0
+        nb > 0 ? rational.presentValue(pb, nb, t, false)[1].toFixed(2) : 0
       }</h4>
     </div>
 
