@@ -90,6 +90,10 @@ function createHTML(arr, prt = false) {
     }
     cf = rational.CF(t, np);
     pmt = cf * pv;
+    // there is no sense in a montly payment greater than the loan...
+    if (pmt >= pv) {
+      throw new Error("Prestação é maior do que o empréstimo");
+    }
   } catch (e) {
     message += e.message;
   } finally {
