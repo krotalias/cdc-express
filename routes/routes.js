@@ -81,16 +81,18 @@ function createHTML(arr, prt = false) {
   let i = 0;
   let ti = 0;
   let message = "";
+  let dp = rational.getDownPayment();
 
   try {
-    [ti, i] = rational.getInterest(pp, pv, np);
-    if (t === 0) t = ti * 0.01;
+    if (t === 0) {
+      [ti, i] = rational.getInterest(pp, pv, np);
+      t = ti * 0.01;
+    }
     cf = rational.CF(t, np);
     pmt = cf * pv;
   } catch (e) {
     message += e.message;
   } finally {
-    var dp = rational.getDownPayment();
     if (dp) {
       np -= 1; // uma prestação a menos
       pmt /= 1 + t; // diminui a prestação
