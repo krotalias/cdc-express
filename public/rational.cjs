@@ -155,8 +155,11 @@ function isNegative0(x) {
  * @see <img src="../public/newton_fig.png" alt="Newton Method">
  */
 function getInterest(x, y, p) {
+  let R = x / p; // prestação
   if (!getDownPayment()) {
     return getInterest2(x, y, p);
+  } else {
+    return getInterest2(x - R, y - R, p - 1);
   }
 
   if (x == 0 || y == 0 || p == 0) return [0, 0];
@@ -164,14 +167,14 @@ function getInterest(x, y, p) {
   let t = 0;
   let n = 0;
   while (!isZero(t2 - t)) {
-    if (n > 120) throw new Error("Newton is not converging!");
+    if (n > 150) throw new Error("Newton is not converging!");
     t = t2;
     n += 1;
     let tPlusOne = 1.0 + t;
     let a = tPlusOne ** (p - 2); // (1.0+t)**(p-2)
     let b = a * tPlusOne; // (1.0+t)**(p-1)
     let c = b * tPlusOne; // (1.0+t)**p
-    let d = y * t * b - (x / p) * (c - 1); // f(t_n)
+    let d = y * t * b - R * (c - 1); // f(t_n)
     let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
     t2 = t - d / dt;
   }
@@ -204,7 +207,7 @@ function getInterest2(x, y, p) {
   let t = 0;
   let n = 0;
   while (!isZero(t2 - t)) {
-    if (n > 120) throw new Error("Newton is not converging!");
+    if (n > 150) throw new Error("Newton is not converging!");
     t = t2;
     n += 1;
     let tPlusOne = 1.0 + t;
