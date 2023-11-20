@@ -176,6 +176,7 @@ function getInterest(x, y, p) {
     t2 = t - d / dt;
   }
   if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
+  // there is no sense in a montly payment greater than the loan...
   if (t2 > 1) throw new Error("Newton interest rate > 100%");
   return [t2 * 100.0, n];
 }
