@@ -139,8 +139,9 @@ function createHTML(arr, prt = false) {
     <div id="blueBox" class="rectangle">
       <h2><mark>${message}</mark></h2>
       <h4>Coeficiente de Financiamento: ${cf.toFixed(6)}</h4>
-      <h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)}
-      = \$${pmt}).toFixed(2)} ao mês</h4>
+      <h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)}= \$${pmt.toFixed(
+    2
+  )} ao mês</h4>
       <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
       <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
       <h4>Valor Corrigido: \$${

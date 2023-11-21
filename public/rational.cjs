@@ -420,12 +420,12 @@ function priceTable(np, pv, t, pmt) {
   let dataTable = [
     ["Mês", "Prestação", "Juros", "Amortização", "Saldo Devedor"],
   ];
-  if (t <= 0) return dataTable;
   let pt = getDownPayment() ? pmt : 0;
   let jt = 0;
   let at = 0;
   dataTable.push(["n", "R = pmt", "J = SD * t", "U = pmt - J", "SD = PV - U"]);
   dataTable.push([0, pt, `(${t.toFixed(4)})`, 0, pv]);
+  if (t <= 0) return dataTable;
   for (let i = 0; i < np; ++i) {
     let juros = pv * t;
     let amortizacao = pmt - juros;
