@@ -420,7 +420,7 @@ function priceTable(np, pv, t, pmt) {
   let dataTable = [
     ["Mês", "Prestação", "Juros", "Amortização", "Saldo Devedor"],
   ];
-  if (t <= 0) return;
+  if (t <= 0) return dataTable;
   let pt = getDownPayment() ? pmt : 0;
   let jt = 0;
   let at = 0;
