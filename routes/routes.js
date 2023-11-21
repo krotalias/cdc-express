@@ -76,7 +76,7 @@ function createHTML(arr, prt = false) {
   let [np, t, pv, pp, pb, nb] = arr;
   t *= 0.01;
 
-  let pmt = 0;
+  let pmt = pp / np;
   let cf = 0;
   let i = 0;
   let ti = 0;
@@ -85,6 +85,11 @@ function createHTML(arr, prt = false) {
 
   try {
     if (t === 0) {
+      if (pmt >= pv) {
+        throw new Error(
+          `Prestação (\$${pmt.toFixed(2)}) é maior do que o empréstimo`
+        );
+      }
       [ti, i] = rational.getInterest(pp, pv, np);
       t = ti * 0.01;
     }
