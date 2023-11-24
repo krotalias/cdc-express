@@ -698,11 +698,17 @@ function cdcCLI(argv = process.argv) {
   log(`Prestação: \$${pmt.toFixed(2)}${crlf}`);
 
   let output = result.slice() + rational_discount(np, t, pp, pv, debug);
+  result = "";
+  output = output.slice(
+    0,
+    output.indexOf(crlf + "                         Tabela Price")
+  );
 
   // Tabela Price
   if (debug) {
     setDownPayment(dp);
     log(nodePriceTable(priceTable(np, pv, t, pmt)));
+    output += result;
   }
   console.log(output.split(crlf).join("\n"));
 }
