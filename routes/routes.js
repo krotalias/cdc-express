@@ -27,25 +27,89 @@
  * </ul>
  *
  * @requires module:rational
- * @requires express
+ * @requires module:external:express
  *
  * @author Paulo Roma
  * @since 01/11/2023
  * @see <a href="../routes/routes.js">source</a>
  * @see <a href="https://cdc-express.vercel.app">link</a>
  * @see https://expressjs.com/en/guide/routing.html#express-router
+ * @see https://masteringjs.io/tutorials/express/post
+ * @see https://stackoverflow.com/questions/32327858/how-to-send-a-post-request-from-node-js-express
  */
 
 "use strict";
 
-const rational = require("../public/rational.cjs");
-const express = require("express");
 /**
- * @var {router} router Express router.
+ * @var {module:rational} rational module for math calculations.
+ */
+const rational = require("../public/rational.cjs");
+
+/**
+ * Express module.
+ * @external express
+ * @see https://expressjs.com
+ */
+const express = require("express");
+
+/**
+ * A router object is an isolated instance of middleware and routes.
+ * You can think of it as a “mini-application,” capable only of performing
+ * middleware and routing functions.
+ * Every Express application has a built-in app router.
+ *
+ * <p>A router behaves like middleware itself, so you can use it as an argument
+ * to app.use() or as the argument to another router’s use() method.</p>
+ *
+ * <p>The top-level express object has a Router() method that creates a new router object.</p>
+ *
+ * Once you’ve created a router object, you can add middleware and HTTP method routes
+ * (such as get, put, post, and so on) to it just like an application. For example:
+ * @class Router
+ * @memberof external:express
  * @see https://expressjs.com/en/4x/api.html#router
+ */
+
+/**
+ * @var {external:express.Router} router an Express router object.
  */
 const router = express.Router();
 
+/**
+ * <p>Uses the specified middleware function or functions,
+ * with optional mount path path, that defaults to “/”.</p>
+ *
+ * <p>This method is similar to
+ * {@link https://expressjs.com/en/4x/api.html#app.use app.use()}.
+ * A simple example and use case is described below.
+ * See {@link https://expressjs.com/en/4x/api.html#app.use app.use()}
+ * for more information.</p>
+ *
+ * Middleware is like a plumbing pipe: requests start at
+ * the first middleware function defined and work their way “down”
+ * the middleware stack processing for each path they match.
+ * @method use
+ * @memberof external:express.Router
+ * @see https://expressjs.com/en/4x/api.html#router.use
+ */
+
+/**
+ * This is a built-in middleware function in Express.
+ * It parses incoming requests with JSON payloads and is based on
+ * {@link https://expressjs.com/en/resources/middleware/body-parser.html body-parser}.
+ * @method json
+ * @memberof external:express.express
+ * @see https://expressjs.com/en/api.html#express.json
+ */
+
+/**
+ * This is a built-in middleware function in Express.
+ * It parses incoming requests with urlencoded payloads and is based on
+ * {@link https://expressjs.com/en/resources/middleware/body-parser.html body-parser}.
+ * @method urlencoded
+ * @memberof external:express.express
+ * @see https://expressjs.com/en/api.html#express.urlencoded
+ */
 // for POST
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));

@@ -15,7 +15,7 @@
  * </ul>
  *
  * @requires module:routes/routes
- * @requires express
+ * @requires module:external:express
  *
  * @author Paulo Roma
  * @since 01/11/2023
@@ -38,9 +38,37 @@
 
 const vercel = true;
 
+/**
+ * Express module.
+ * @external express
+ * @see https://expressjs.com
+ */
 const express = require("express");
+
+/**
+ * @var {module:routes/routes} indexRouter module for routing.
+ */
 const indexRouter = require("../routes/routes.js");
+
+/**
+ * CORS is a node.js package for providing a Connect/Express middleware
+ * that can be used to enable CORS with various options.
+ * @external cors
+ * @see https://expressjs.com/en/resources/middleware/cors.html
+ */
 const cors = require("cors");
+
+/**
+ * Creates an Express application.
+ * The express() function is a top-level function exported by the express module.
+ * @class express
+ * @memberof external:express
+ * @see https://expressjs.com/en/4x/api.html
+ */
+
+/**
+ * @var {external:express.express} app an express application.
+ */
 const app = express();
 
 app.set("port", process.env.PORT || 3000);
@@ -48,19 +76,19 @@ app.use(cors());
 app.use(express.static("public"));
 
 if (!vercel) {
-    const favicon = require("serve-favicon");
-    const path = require("path");
-    app.use(favicon(path.join("public", "favicon.ico")));
+  const favicon = require("serve-favicon");
+  const path = require("path");
+  app.use(favicon(path.join("public", "favicon.ico")));
 
-    // middleware
-    app.use((req, res, next) => {
-        const timeElapsed = Date.now();
-        const today = new Date(timeElapsed);
-        console.log("Time: ", today.toISOString());
-        console.log(`${req.method}: url: ${req.url}, path: ${req.path}`);
-        console.log(req.get("referer"));
-        next();
-    });
+  // middleware
+  app.use((req, res, next) => {
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    console.log("Time: ", today.toISOString());
+    console.log(`${req.method}: url: ${req.url}, path: ${req.path}`);
+    console.log(req.get("referer"));
+    next();
+  });
 }
 
 let root = "/api";
@@ -71,9 +99,9 @@ app.use(root, indexRouter);
 
 // this should not be used with vercel !!!!
 if (!vercel) {
-    app.listen(app.get("port"), () => {
-        console.log(`Listening on port ${app.get("port")}`);
-    });
+  app.listen(app.get("port"), () => {
+    console.log(`Listening on port ${app.get("port")}`);
+  });
 }
 
 module.exports = app;
